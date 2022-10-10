@@ -1,7 +1,9 @@
 import React from 'react';
+import {TaskType} from "./App";
 
 type TodoListPropsType = {
     title: string,
+    tasks: Array<TaskType>
 }
 
 const TodoList = (props: TodoListPropsType) => {
@@ -13,9 +15,18 @@ const TodoList = (props: TodoListPropsType) => {
                 <button>+</button>
             </div>
             <ul>
-                <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
-                <li><input type="checkbox" checked={true}/> <span>JS</span></li>
-                <li><input type="checkbox" checked={false}/> <span>React</span></li>
+                <li>
+                    <input type="checkbox" checked={props.tasks[0].isDone}/>
+                    <span>{props.tasks[0].title}</span>
+                </li>
+                <li>
+                    <input type="checkbox" checked={props.tasks[1].isDone}/>
+                    <span>{props.tasks[1].title}</span>
+                </li>
+                <li>
+                    <input type="checkbox" checked={props.tasks[2].isDone}/>
+                    <span>{props.tasks[2].title}</span>
+                </li>
             </ul>
             <div>
                 <button>All</button>
