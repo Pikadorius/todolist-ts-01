@@ -5,9 +5,9 @@ import TodoList from "./TodoList";
 function App() {
     return (
         <div className="App">
-            <TodoList/>
+            <TodoList title={"What to learn"}/>
+            <TodoList title={"What to buy"}/>
         </div>
     );
 }
-
 export default App;
