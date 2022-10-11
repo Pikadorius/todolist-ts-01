@@ -20,14 +20,13 @@ function App() {
         {id: 5, title: "ANGULAR", isDone: false},
     ];
 
-    let arr=useState(initTasks);
+    let arr = useState(initTasks);
 
-    let tasks=arr[0];
-    let setTasks=arr[1];
+    let tasks = arr[0];
+    let setTasks = arr[1];
 
     const removeTask = (id: number) => {
-        debugger
-        let filteredTasks = tasks.filter(elem => elem.id!==id);
+        let filteredTasks = tasks.filter(elem => elem.id !== id);
         setTasks(filteredTasks);
         console.log(tasks);
     };
