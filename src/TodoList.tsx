@@ -22,7 +22,7 @@ const TodoList = (props: TodoListPropsType) => {
                             <li>
                                 <input type="checkbox" checked={elem.isDone}/>
                                 <span>{elem.title}</span>
-                                <button>x</button>
+                                <button onClick={ ()=>{ alert(elem.id)} }>x</button>
                             </li>
                         )
                     })
