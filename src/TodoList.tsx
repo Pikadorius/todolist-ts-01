@@ -3,11 +3,11 @@ import {TaskType} from "./App";
 
 type TodoListPropsType = {
     title: string,
-    tasks: Array<TaskType>
+    tasks: Array<TaskType>,
+    removeTask: Function
 }
 
 const TodoList = (props: TodoListPropsType) => {
-    debugger
     return (
         <div>
             <h3>{props.title}</h3>
@@ -22,7 +22,7 @@ const TodoList = (props: TodoListPropsType) => {
                             <li>
                                 <input type="checkbox" checked={elem.isDone}/>
                                 <span>{elem.title}</span>
-                                <button onClick={ ()=>{ alert(elem.id)} }>x</button>
+                                <button onClick={ () => props.removeTask(elem.id) }>x</button>
                             </li>
                         )
                     })
