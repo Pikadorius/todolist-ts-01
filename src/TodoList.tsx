@@ -7,6 +7,7 @@ type TodoListPropsType = {
 }
 
 const TodoList = (props: TodoListPropsType) => {
+    debugger
     return (
         <div>
             <h3>{props.title}</h3>
@@ -15,18 +16,16 @@ const TodoList = (props: TodoListPropsType) => {
                 <button>+</button>
             </div>
             <ul>
-                <li>
-                    <input type="checkbox" checked={props.tasks[0].isDone}/>
-                    <span>{props.tasks[0].title}</span>
-                </li>
-                <li>
-                    <input type="checkbox" checked={props.tasks[1].isDone}/>
-                    <span>{props.tasks[1].title}</span>
-                </li>
-                <li>
-                    <input type="checkbox" checked={props.tasks[2].isDone}/>
-                    <span>{props.tasks[2].title}</span>
-                </li>
+                {
+                    props.tasks.map((elem) => {
+                        return (
+                            <li>
+                                <input type="checkbox" checked={elem.isDone}/>
+                                <span>{elem.title}</span>
+                            </li>
+                        )
+                    })
+                }
             </ul>
             <div>
                 <button>All</button>
