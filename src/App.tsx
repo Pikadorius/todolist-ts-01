@@ -28,16 +28,16 @@ function App() {
 
     let tasksForTodoList = tasks;
     if (filter === "completed") {
-        tasksForTodoList = initTasks.filter(elem => elem.isDone);
+        tasksForTodoList = tasks.filter(elem => elem.isDone);
     }
     if (filter === "active") {
-        tasksForTodoList = initTasks.filter(elem => !elem.isDone);
+        tasksForTodoList = tasks.filter(elem => !elem.isDone);
     }
 
     const changeFilter = (value: FilterValuesType) => setFilter(value);
 
     const removeTask = (id: number) => {
-        let filteredTasks = tasks.filter(elem => elem.id !== id);
+        let filteredTasks = tasksForTodoList.filter(elem => elem.id !== id);
         setTasks(filteredTasks);
         console.log(tasks);
     };
