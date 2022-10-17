@@ -9,6 +9,22 @@ type TodoListPropsType = {
 }
 
 const TodoList = (props: TodoListPropsType) => {
+
+    const tasksJSXItemsList = props.tasks.length ?
+        <ul>
+            {
+                props.tasks.map((task, index) => {
+                    return (
+                        <li key={index}>
+                            <input type="checkbox" checked={task.isDone}/>
+                            <span>{task.title}</span>
+                            <button onClick={() => props.removeTask(task.id)}>x</button>
+                        </li>
+                    )
+                })
+            }
+        </ul> : <span>Your list is empty!</span>;
+
     return (
         <div>
             <h3>{props.title}</h3>
@@ -16,19 +32,7 @@ const TodoList = (props: TodoListPropsType) => {
                 <input/>
                 <button>+</button>
             </div>
-            <ul>
-                {
-                    props.tasks.map((elem) => {
-                        return (
-                            <li>
-                                <input type="checkbox" checked={elem.isDone}/>
-                                <span>{elem.title}</span>
-                                <button onClick={ () => props.removeTask(elem.id) }>x</button>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+            {tasksJSXItemsList}
             <div>
                 <button onClick={()=>props.changeFilter("all")}>All</button>
                 <button onClick={()=>props.changeFilter("active")}>Active</button>
