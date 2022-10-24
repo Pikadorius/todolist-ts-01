@@ -1,24 +1,50 @@
-import React from 'react';
+import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 
 type TodoListPropsType = {
     title: string,
     tasks: Array<TaskType>,
-    removeTask: (id:string)=>void
+    removeTask: (id: string) => void
     changeFilter: (value: FilterValuesType) => void
+    addTask: (title: string) => void
 }
 
 const TodoList = (props: TodoListPropsType) => {
+
+    const [title, setTitle] = useState<string>("")
+
+    const addNewTask = () => {
+        const trimmedTitle = title.trim()
+        trimmedTitle ? props.addTask(trimmedTitle) : setTitle("");
+        setTitle("")
+    }
+
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value);
+
+    const changeFilterHandlerCreator = (filter: FilterValuesType) => {
+        return (
+            () => props.changeFilter(filter)
+        )
+    }
+
+    const onEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+        event.ctrlKey && event.key === "Enter" && addNewTask()  //работает как if, прерывается на false
+    }
+
+    /*const setFilterAll=()=>props.changeFilter("all")
+    const setFilterActive=()=>props.changeFilter("active")
+    const setFilterCompleted=()=>props.changeFilter("completed")*/
 
     const tasksJSXItemsList = props.tasks.length ?
         <ul>
             {
                 props.tasks.map((task) => {
+                    const removeTask = () => props.removeTask(task.id);
                     return (
                         <li key={task.id}>
                             <input type="checkbox" checked={task.isDone}/>
                             <span>{task.title}</span>
-                            <button onClick={() => props.removeTask(task.id)}>x</button>
+                            <button onClick={removeTask}>x</button>
                         </li>
                     )
                 })
@@ -29,14 +55,14 @@ const TodoList = (props: TodoListPropsType) => {
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input/>
-                <button>+</button>
+                <input value={title} onChange={onChangeHandler} onKeyDown={onEnter}/>
+                <button onClick={addNewTask}>+</button>
             </div>
             {tasksJSXItemsList}
             <div>
-                <button onClick={()=>props.changeFilter("all")}>All</button>
-                <button onClick={()=>props.changeFilter("active")}>Active</button>
-                <button onClick={()=>props.changeFilter("completed")}>Completed</button>
+                <button onClick={changeFilterHandlerCreator('all')}>All</button>
+                <button onClick={changeFilterHandlerCreator('active')}>Active</button>
+                <button onClick={changeFilterHandlerCreator('completed')}>Completed</button>
             </div>
         </div>
     );
