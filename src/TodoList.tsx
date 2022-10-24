@@ -13,9 +13,9 @@ const TodoList = (props: TodoListPropsType) => {
     const tasksJSXItemsList = props.tasks.length ?
         <ul>
             {
-                props.tasks.map((task, index) => {
+                props.tasks.map((task) => {
                     return (
-                        <li key={index}>
+                        <li key={task.id}>
                             <input type="checkbox" checked={task.isDone}/>
                             <span>{task.title}</span>
                             <button onClick={() => props.removeTask(task.id)}>x</button>
