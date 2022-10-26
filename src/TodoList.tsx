@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilterValuesType, TaskType} from "./App";
+import Button from './Button';
 
 type TodoListPropsType = {
     title: string,
@@ -45,6 +46,7 @@ const TodoList = (props: TodoListPropsType) => {
                             <input type="checkbox" checked={task.isDone}/>
                             <span>{task.title}</span>
                             <button onClick={removeTask}>x</button>
+                            <Button name={'х'} callBack={removeTask}/>
                         </li>
                     )
                 })
