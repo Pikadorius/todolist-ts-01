@@ -15,6 +15,7 @@ const TodoList = (props: TodoListPropsType) => {
 
     const [title, setTitle] = useState<string>("")
     const [error, setError] = useState<string>("")
+    // const [error, setError] = useState<boolean>(false)
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value)
@@ -39,7 +40,6 @@ const TodoList = (props: TodoListPropsType) => {
     }
 
     const onEnter = (event: KeyboardEvent<HTMLInputElement>) => {
-
         setError("")
         event.ctrlKey && event.key === "Enter" && addNewTask()  //работает как if, прерывается на false
     }
@@ -52,6 +52,7 @@ const TodoList = (props: TodoListPropsType) => {
             setError('Error! Write something')
         }
     }
+
     /*const setFilterAll=()=>props.changeFilter("all")
     const setFilterActive=()=>props.changeFilter("active")
     const setFilterCompleted=()=>props.changeFilter("completed")*/
@@ -61,11 +62,11 @@ const TodoList = (props: TodoListPropsType) => {
             {
                 props.tasks.map((task) => {
                     const removeTask = () => props.removeTask(task.id);
-                    const changeStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, e.currentTarget.checked)
+                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, e.currentTarget.checked)
 
                     return (
-                        <li key={task.id} className={task.isDone? "done" : ""} >
-                            <input type="checkbox" checked={task.isDone} onChange={changeStatus}/>
+                        <li key={task.id} className={task.isDone ? "isDone" : ""}>
+                            <input type="checkbox" checked={task.isDone} onChange={changeTaskStatus}/>
                             <span>{task.title}</span>
                             <button onClick={removeTask}>x</button>
                         </li>
@@ -83,7 +84,7 @@ const TodoList = (props: TodoListPropsType) => {
                 <button onClick={addNewTask}>+</button>
             </div>
             {
-                error && <div className={"error"}>Error! Title is required!</div>
+                error && <div className={"error"}>{error}</div>
             }
             {tasksJSXItemsList}
             <div>

@@ -13,6 +13,7 @@ export type FilterValuesType = "all" | "completed" | "active";
 
 
 function App() {
+    console.log("App rendering")
     //BLL
     const todoListTitle: string = "What to learn";
 
@@ -51,10 +52,11 @@ function App() {
         }
         return filteredTasks;
     }
-    const changeStatus = (id: string, isDone: boolean) => {
-        let task = tasksForTodoList.find(i => i.id === id)
+    const changeTaskStatus = (id: string, isDone: boolean) => {
+        /*let task = tasksForTodoList.find(i => i.id === id)
         task ? task.isDone = isDone : alert("This task is no exist")
-        setTasksForTodolist([...tasksForTodoList])
+        setTasksForTodolist([...tasksForTodoList])*/
+        setTasksForTodolist(tasksForTodoList.map(t => t.id === id ? {...t, isDone: isDone} : t))
     }
 
     //GUI
@@ -62,12 +64,12 @@ function App() {
         <div className="App">
             <TodoList title={todoListTitle}
                       tasks={getFilteredTasks(tasksForTodoList, filter)}
+                      filter={filter}
 
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask={addTask}
-                      changeTaskStatus={changeStatus}
-                      filter={filter}/>
+                      changeTaskStatus={changeTaskStatus}/>
         </div>
     );
 }
