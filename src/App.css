@@ -12,3 +12,25 @@ span {
   display: inline-block;
   width:100px;
 }
+
+.error {
+  color: red;
+}
+
+.errorInput {
+  border: 1px solid red;
+}
+
+.input {
+  border: 1px solid green;
+}
+
+.active-filter {
+  background-color: green;
+  color: white;
+}
+
+.done {
+  color: grey;
+  opacity: 0.5;
+}

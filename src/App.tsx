@@ -51,7 +51,11 @@ function App() {
         }
         return filteredTasks;
     }
-
+    const changeStatus = (id: string, isDone: boolean) => {
+        let task = tasksForTodoList.find(i => i.id === id)
+        task ? task.isDone = isDone : alert("This task is no exist")
+        setTasksForTodolist([...tasksForTodoList])
+    }
 
     //GUI
     return (
@@ -61,7 +65,9 @@ function App() {
 
                       removeTask={removeTask}
                       changeFilter={changeFilter}
-                      addTask={addTask}/>
+                      addTask={addTask}
+                      changeTaskStatus={changeStatus}
+                      filter={filter}/>
         </div>
     );
 }
