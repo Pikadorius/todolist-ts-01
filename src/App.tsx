@@ -43,16 +43,16 @@ function App() {
             {id: v1(), title: "GraphQL2", isDone: false},
         ]
     });
-    console.log(tasks)
-    console.log(tasks[todolistID1])
 
-    // let [tasks, setTasks] = useState([
-    //     {id: v1(), title: "HTML&CSS", isDone: true},
-    //     {id: v1(), title: "JS", isDone: true},
-    //     {id: v1(), title: "ReactJS", isDone: false},
-    //     {id: v1(), title: "Rest API", isDone: false},
-    //     {id: v1(), title: "GraphQL", isDone: false},
-    // ]);
+
+    const removeTodolist = (todolistID: string) => {
+        console.log(todolistID)
+        setTodolists(todolists.filter(t=>t.id!==todolistID))
+        console.log(tasks)
+        delete tasks[todolistID]
+        console.log(tasks)
+
+    }
 
 
     function removeTask(todolistID: string, taskId: string) {
@@ -102,6 +102,7 @@ function App() {
 
                     return (
                         <Todolist
+                            removeTodolist={removeTodolist}
                             key={el.id}
                             todolistId={el.id}
                             title={el.title}
