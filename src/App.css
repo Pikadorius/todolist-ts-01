@@ -1,40 +1,26 @@
+
 .App {
-    padding: 30px;
-    display: flex;
+  padding: 30px;
+  display: flex;
 }
 
 .App > div {
-    margin-right: 50px;
-}
-
-
-span {
-    display: inline-block;
-    width: 100px;
+  margin-right: 50px;
 }
 
 .error {
-    color: red;
+  border: red 1px solid;
 }
 
-.errorInput {
-    border: 3px solid red;
-}
-
-.input {
-    border: 1px solid green;
+.error-message {
+  color: red;
 }
 
 .active-filter {
-    background-color: green;
-    color: white;
+  background-color: aquamarine;
 }
 
-.isDone {
-    color: grey;
-    opacity: 0.5;
+.is-done {
+  opacity: 0.5;
 }
 
-.isDone span {
-    text-decoration: line-through;
-}
