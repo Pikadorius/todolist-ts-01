@@ -5,6 +5,11 @@ import {v1} from 'uuid';
 
 export type FilterValuesType = "all" | "active" | "completed";
 
+type TaskType = {
+    id: string,
+    title: string,
+    isDone: boolean
+}
 
 type TodolistsType = {
     id: string
@@ -56,10 +61,16 @@ function App() {
         setTasks({...tasks, [todolistID]:tasks[todolistID].filter(el=>el.id!==taskId)})
     }
 
-    function addTask(title: string) {
+    function addTask(todolistID:string, title: string) {
         // let task = {id: v1(), title: title, isDone: false};
         // let newTasks = [task, ...tasks];
         // setTasks(newTasks);
+        let newTask: TaskType = {
+            id: v1(),
+            title: title,
+            isDone: false
+        }
+        setTasks({...tasks, [todolistID]: [newTask,...tasks[todolistID]]})
     }
 
     function changeStatus(taskId: string, isDone: boolean) {
