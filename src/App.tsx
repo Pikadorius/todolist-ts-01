@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Todolist} from './Todolist';
 import {v1} from 'uuid';
+import {Todolist} from "./TodoList";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -43,6 +43,23 @@ function App() {
             {id: v1(), title: "GraphQL2", isDone: false},
         ]
     });
+
+    useEffect(()=>{
+        const listsData=localStorage.getItem('todolists')
+        const tasksData=localStorage.getItem('tasks')
+        if (listsData && tasksData) {
+            setTodolists(JSON.parse(listsData))
+            setTasks(JSON.parse(tasksData))
+        }
+    },[])
+
+    useEffect(()=>{
+        localStorage.setItem('todolists', JSON.stringify(todolists))
+    },[todolists])
+
+    useEffect(()=>{
+        localStorage.setItem('tasks',JSON.stringify(tasks))
+    },[tasks])
 
 
     const removeTodolist = (todolistID: string) => {
