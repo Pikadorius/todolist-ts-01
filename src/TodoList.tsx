@@ -2,6 +2,9 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import Input from './Components/Input';
 import EditableSpan from './Components/EditableSpan';
+import {Button, IconButton} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export type TaskType = {
     id: string
@@ -44,8 +47,10 @@ export function Todolist(props: PropsType) {
     const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
 
     return <div>
-        <h3><EditableSpan title={props.title} callBack={()=>updateTodolist}/>
-            <button onClick={removeTodolist}>x</button>
+        <h3><EditableSpan title={props.title} callBack={() => updateTodolist}/>
+            <IconButton aria-label="delete" onClick={removeTodolist}>
+                <DeleteIcon />
+            </IconButton>
         </h3>
         <div>
             <Input callBack={addTask}/>
@@ -64,8 +69,11 @@ export function Todolist(props: PropsType) {
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox" onChange={onChangeHandler} checked={t.isDone}/>
-                        <EditableSpan callBack={(updatedTitle)=>updateTaskHandler(updatedTitle, t.id)} title={t.title}/>
-                        <button onClick={onClickHandler}>x</button>
+                        <EditableSpan callBack={(updatedTitle) => updateTaskHandler(updatedTitle, t.id)}  // колбэк принимает аргумент и передаёи его дальше
+                                      title={t.title}/>
+                        <IconButton aria-label="delete" onClick={onClickHandler}>
+                            <HighlightOffIcon />
+                        </IconButton>
                     </li>
                 })
             }
