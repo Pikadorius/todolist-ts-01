@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 
+
 type EditableSpanPropsType = {
     value: string
     onChange: (newValue: string) => void
