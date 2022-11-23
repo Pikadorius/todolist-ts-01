@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {TaskType, Todolist} from './Todolist';
+import {TaskType, Todolist} from './TodoList';
 import {v1} from 'uuid';
 import {AddItemForm} from './AddItemForm';
 import ButtonAppBar from './ButtonAppBar';
@@ -141,7 +141,7 @@ function App() {
                         }
 
                         return <Grid item>
-                            <Paper  elevation={3} style={{padding: 'K20px'}}><Todolist
+                            <Paper  elevation={3} style={{padding: '20px'}}><Todolist
                                 key={tl.id}
                                 id={tl.id}
                                 title={tl.title}
