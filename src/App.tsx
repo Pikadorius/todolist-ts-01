@@ -24,6 +24,7 @@ import {
 } from './reducers/tasksReducer';
 
 export type FilterValuesType = "all" | "active" | "completed";
+
 export type TodolistType = {
     id: string
     title: string
@@ -33,7 +34,6 @@ export type TodolistType = {
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
-
 
 function App() {
 
@@ -76,7 +76,7 @@ function App() {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    let [todolists, dispatchTodolists] = useReducer( todolistsReducer,[
+    let [todolists, dispatchTodolists] = useReducer(todolistsReducer,[
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ])
@@ -98,6 +98,10 @@ function App() {
             <Container fixed>
                 <Grid container >
                     <Paper style={{margin: '20px'}}  elevation={3}><AddItemForm addItem={addTodolist}/></Paper>
+                    <button onClick={()=> {
+                        console.log(tasks)
+                        console.log(todolists)
+                    }}>log</button>
                 </Grid>
                 <Grid container spacing={3}>
                 {

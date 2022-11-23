@@ -1,10 +1,11 @@
 import {TasksStateType} from '../App';
 import {v1} from 'uuid';
+import {TaskType} from '../TodoList';
 
 export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
     switch (action.type) {
         case 'ADD-TASK': {
-            let task = {id: v1(), title: action.payload.title, isDone: false};
+            let task:TaskType = {id: v1(), title: action.payload.title, isDone: false};
             //достанем нужный массив по todolistId:
             let todolistTasks = state[action.payload.todolistId];
             // перезапишем в этом объекте массив для нужного тудулиста копией, добавив в начало новую таску:
@@ -16,7 +17,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
             //достанем нужный массив по todolistId:
             let todolistTasks = state[action.payload.todolistId];
             // перезапишем в этом объекте массив для нужного тудулиста отфилтрованным массивом:
-            state[action.payload.todolistId] = todolistTasks.filter(t => t.id != action.payload.id);
+            state[action.payload.todolistId] = todolistTasks.filter(t => t.id !== action.payload.id);
             // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
             return {...state}
         }
