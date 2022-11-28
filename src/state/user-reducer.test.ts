@@ -1,4 +1,4 @@
-import userReducer, {increaseAgeAC, increaseChildrenCount, StateType} from "./user-reducer";
+import userReducer, {changeNameAC, increaseAgeAC, increaseChildrenCount, StateType} from "./user-reducer";
 
 let user: StateType;
 
@@ -34,7 +34,15 @@ test('reducers should increase users age and children count', ()=>{
     expect(user.age).toBe(30)
     expect(user.childrenCount).toBe(1)
 })
-
+/*
 test('reducer should throw error', ()=>{
     expect(()=>userReducer(user, {type: '123'})).toThrow('Bad action!')
+})
+*/
+
+test('reducer should change users name', ()=>{
+    let newUser=userReducer(user, changeNameAC('Petya'))
+
+    expect(newUser.name).toBe('Petya')
+    expect(user.name).toBe('Egor')
 })
