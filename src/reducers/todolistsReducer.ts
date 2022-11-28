@@ -1,6 +1,6 @@
 import {FilterValuesType, TodolistType} from '../App';
 
-export const todolistsReducer = (state: TodolistType[], action: ActionsType) => {
+export const todolistsReducer = (state: TodolistType[], action: ActionsType):TodolistType[] => {
     switch (action.type) {
         case 'ADD-TODOLIST': {
             let newTodolist:TodolistType = {id: action.payload.newTodolistId, title: action.payload.title, filter: 'all'};
@@ -10,24 +10,24 @@ export const todolistsReducer = (state: TodolistType[], action: ActionsType) => 
             return state.filter((t=>t.id!==action.payload.id))
         }
         case 'CHANGE-TODOLIST-TITLE': {
-            const todolist = state.find(tl => tl.id === action.payload.id);
-            if (todolist) {
-                // если нашёлся - изменим ему заголовок
-                todolist.title = action.payload.title;
-                return [...state]
-            }
-            else return state;
+            // const todolist = state.find(tl => tl.id === action.payload.id);
+            // if (todolist) {
+            //     // если нашёлся - изменим ему заголовок
+            //     todolist.title = action.payload.title;
+            //     return [...state]
+            return state.map(t=>t.id===action.payload.id?{...t, title: action.payload.title}:t)
         }
         case 'CHANGE-TODOLIST-FILTER': {
-            let todolist = state.find(tl => tl.id === action.payload.id);
-            if (todolist) {
-                todolist.filter = action.payload.filter;
-                return [...state]
-            }
-            else return state;
+            // let todolist = state.find(tl => tl.id === action.payload.id);
+            // if (todolist) {
+            //     todolist.filter = action.payload.filter;
+            //     return [...state]
+            // }
+            // else return state;
+            return state.map(t=>t.id===action.payload.id?{...t, filter:action.payload.filter}:t)
         }
         default:
-            return state
+            throw new Error('Bad action!')
     }
 }
 

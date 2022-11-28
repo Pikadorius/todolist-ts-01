@@ -32,10 +32,10 @@ export function AddItemForm(props: AddItemFormPropsType) {
     }
 
     return <div>
-        <TextField label={error ? "Write something..." : "Enter task:"} variant="outlined" value={title}
+        <TextField label={error ? "Error!" : "Write something:"} variant="outlined" value={title}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : "Enter task:"}
+                   className={error ? '' : ''}
                    size={'small'}
                    error={!!error}/>
         <Button style={{maxWidth: '40px', maxHeight: '40px', minWidth: '40px', minHeight: '40px'}}
