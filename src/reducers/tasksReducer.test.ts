@@ -70,14 +70,14 @@ test('reducer should added empty tasks array', () => {
     let newTasks = tasksReducer(tasks, addTasksToTodolistAC(newTodoID))
 
     expect(newTasks[newTodoID]).toStrictEqual([])
-    expect(tasks[newTodoID]).toStrictEqual(undefined)
+    expect(tasks[newTodoID]).toBeUndefined()
 })
 
 test('reducer should deleted correct tasks array', () => {
 
     let newTasks = tasksReducer(tasks, deleteTasksFromTodolistAC(todoId1))
 
-    expect(newTasks[todoId1]).toStrictEqual(undefined)
+    expect(newTasks[todoId1]).toBeUndefined()
     expect(tasks[todoId1]).toStrictEqual([
         {id: '1', title: "HTML&CSS", isDone: true},
         {id: '2', title: "JS", isDone: true}
