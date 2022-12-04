@@ -17,7 +17,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
         case 'CHANGE-TASK-TITLE': {
             return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(t=>t.id===action.payload.id? {...t, title: action.payload.newTitle}:t)}
         }
-        case 'ADD-TODOLIST': {
+        case 'ADD-TASKS-TO-NEW-TODOLIST': {
             return {[action.payload.newTodolistId]: [], ...state}
         }
         case 'DELETE-TASKS': {
@@ -87,7 +87,7 @@ export const changeTaskTitleAC = (id: string, newTitle: string, todolistId: stri
 type AddTasksToTodolistACType = ReturnType<typeof addTasksToTodolistAC>
 export const addTasksToTodolistAC = (newTodolistId: string) => {
     return {
-        type: 'ADD-TODOLIST',
+        type: 'ADD-TASKS-TO-NEW-TODOLIST',
         payload: {
             newTodolistId
         }
