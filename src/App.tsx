@@ -96,7 +96,7 @@ function App() {
         <div className="App">
             <ButtonAppBar/>
             <Container fixed>
-                <Grid container >
+                <Grid container spacing={3}>
                     <Paper style={{margin: '20px'}}  elevation={3}><AddItemForm addItem={addTodolist}/></Paper>
                     <button onClick={()=> {
                         console.log(tasks)
@@ -116,7 +116,7 @@ function App() {
                             tasksForTodolist = allTodolistTasks.filter(t => t.isDone);
                         }
 
-                        return <Grid item key={tl.id}>
+                        return <Grid item key={tl.id} padding={'20px'}>
                             <Paper  elevation={3} style={{padding: '20px'}}><Todolist
                                 id={tl.id}
                                 title={tl.title}
