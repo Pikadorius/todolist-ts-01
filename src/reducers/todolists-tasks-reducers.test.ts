@@ -1,15 +1,15 @@
 import {TasksStateType, TodolistType} from '../App';
 import {v1} from 'uuid';
-import {addTodolistAC, todolistsReducer} from './todolistsReducer';
-import {addTasksToTodolistAC, tasksReducer} from './tasksReducer';
+import {addTodolistAC, removeTodolistAC, todolistsReducer} from './todolistsReducer';
+import {addTasksToTodolistAC, deleteTasksFromTodolistAC, tasksReducer} from './tasksReducer';
 
-let todolists:TodolistType[]
-let tasks:TasksStateType
-let todo1=v1()
-let todo2=v1()
+let todolists: TodolistType[]
+let tasks: TasksStateType
+let todo1 = v1()
+let todo2 = v1()
 
-beforeEach(()=>{
-    todolists=[
+beforeEach(() => {
+    todolists = [
         {id: todo1, title: "What to learn", filter: "all"},
         {id: todo2, title: "What to buy", filter: "all"}
     ]
@@ -26,17 +26,30 @@ beforeEach(()=>{
     }
 })
 
-test('reducers should add new todolist and tasks', ()=>{
-    let newId=v1()
+test('reducers should add new todolist and tasks', () => {
+    let newId = v1()
 
-    let newTodo=todolistsReducer(todolists,addTodolistAC('Test', newId))
-    let newTasks=tasksReducer(tasks, addTasksToTodolistAC(newId))
+    let newTodo = todolistsReducer(todolists, addTodolistAC('Test', newId))
+    let newTasks = tasksReducer(tasks, addTasksToTodolistAC(newId))
 
-    const keys=Object.keys(newTasks)
-    const idFromTasks=keys[0]
-    const idFromTodo=newTodo[0].id
+    const keys = Object.keys(newTasks)
+    const idFromTasks = keys[0]
+    const idFromTodo = newTodo[0].id
 
     expect(idFromTasks).toBe(idFromTodo)
     expect(idFromTasks).toBe(newId)
     expect(idFromTodo).toBe(newId)
+})
+
+test('reducers should delete correct todolist and tasks', () => {
+
+    let newTodo = todolistsReducer(todolists, removeTodolistAC(todo1))
+    let newTasks = tasksReducer(tasks, deleteTasksFromTodolistAC(todo1))
+    let keys = Object.keys(newTasks)
+
+    expect(newTodo.length).toBe(1)
+    expect(keys.length).toBe(1)
+    expect(newTodo[0].id).toBe(todo2)
+    expect(keys[0]).toBe(todo2)
+
 })
