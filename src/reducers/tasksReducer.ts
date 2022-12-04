@@ -6,49 +6,24 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
     switch (action.type) {
         case 'ADD-TASK': {
             let task:TaskType = {id: v1(), title: action.payload.title, isDone: false};
-            //достанем нужный массив по todolistId:
-            let todolistTasks = state[action.payload.todolistId];
-            // перезапишем в этом объекте массив для нужного тудулиста копией, добавив в начало новую таску:
-            state[action.payload.todolistId] = [task, ...todolistTasks];
-            // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-            return {...state}
+            return {...state, [action.payload.todolistId]: [...state[action.payload.todolistId],task]}
         }
         case 'REMOVE-TASK': {
-            //достанем нужный массив по todolistId:
-            let todolistTasks = state[action.payload.todolistId];
-            // перезапишем в этом объекте массив для нужного тудулиста отфилтрованным массивом:
-            state[action.payload.todolistId] = todolistTasks.filter(t => t.id !== action.payload.id);
-            // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-            return {...state}
+            return {...state, [action.payload.todolistId]: state[action.payload.todolistId].filter(t=>t.id!==action.payload.id)}
         }
         case 'CHANGE-TASK-STATUS': {
-            let todolistTasks = state[action.payload.todolistId];
-            // найдём нужную таску:
-            let task = todolistTasks.find(t => t.id === action.payload.id);
-            //изменим таску, если она нашлась
-            if (task) {
-                task.isDone = action.payload.isDone;
-                // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-                return {...state}
-            } else return state;
+            return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(t=>t.id===action.payload.id? {...t, isDone: action.payload.isDone }:t)}
         }
         case 'CHANGE-TASK-TITLE': {
-            let todolistTasks = state[action.payload.todolistId];
-            // найдём нужную таску:
-            let task = todolistTasks.find(t => t.id === action.payload.id);
-            //изменим таску, если она нашлась
-            if (task) {
-                task.title = action.payload.newTitle;
-                // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-                return {...state}
-            } else return state;
+            return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(t=>t.id===action.payload.id? {...t, title: action.payload.newTitle}:t)}
         }
         case 'ADD-TODOLIST': {
             return {[action.payload.newTodolistId]: [], ...state}
         }
         case 'DELETE-TASKS': {
-            delete state[action.payload.id]
-            return {...state}
+            let newState={...state}
+            delete newState[action.payload.id]
+            return newState
         }
         default: return state;
     }
