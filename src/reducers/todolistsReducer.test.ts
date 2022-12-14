@@ -28,12 +28,11 @@ test('reducer should remove correct todolist', ()=>{
 })
 
 test('reducer should add new todolist', ()=>{
-    let newId=v1()
+
     let newTitle='What to do:'
-    let newTodos=todolistsReducer(todolists, addTodolistAC(newTitle, newId))
+    let newTodos=todolistsReducer(todolists, addTodolistAC(newTitle))
 
     expect(newTodos.length).toBe(3)
-    expect(newTodos[0].id).toBe(newId)
     expect(newTodos[0].title).toBe(newTitle)
     expect(newTodos[0].filter).toBe('all')
 })

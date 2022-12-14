@@ -1,6 +1,7 @@
 import {TasksStateType} from '../App';
 import {v1} from 'uuid';
 import {TaskType} from '../TodoList';
+import {AddTodolistACType, RemoveTodolistACType} from './todolistsReducer';
 
 export const tasksReducer = (state: TasksStateType, action: ActionsType):TasksStateType => {
     switch (action.type) {
@@ -17,10 +18,10 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType):TasksSt
         case 'CHANGE-TASK-TITLE': {
             return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(t=>t.id===action.payload.id? {...t, title: action.payload.newTitle}:t)}
         }
-        case 'ADD-TASKS-TO-NEW-TODOLIST': {
-            return {[action.payload.newTodolistId]: [], ...state}
+        case 'ADD-TODOLIST': {
+            return {[action.payload.todolistId]: [], ...state}
         }
-        case 'DELETE-TASKS': {
+        case 'REMOVE-TODOLIST': {
             let newState={...state}
             delete newState[action.payload.id]
             return newState
@@ -34,8 +35,8 @@ export type ActionsType =
     AddTaskACType |
     ChangeTaskStatusACType |
     ChangeTaskTitleACType |
-    AddTasksToTodolistACType |
-    DeleteTasksFromTodolistACType
+    AddTodolistACType |
+    RemoveTodolistACType
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 export const removeTaskAC = (id: string, todolistId: string) => {
@@ -83,6 +84,7 @@ export const changeTaskTitleAC = (id: string, newTitle: string, todolistId: stri
         }
     } as const
 }
+/*
 
 type AddTasksToTodolistACType = ReturnType<typeof addTasksToTodolistAC>
 export const addTasksToTodolistAC = (newTodolistId: string) => {
@@ -93,7 +95,9 @@ export const addTasksToTodolistAC = (newTodolistId: string) => {
         }
     } as const
 }
+*/
 
+/*
 type DeleteTasksFromTodolistACType = ReturnType<typeof deleteTasksFromTodolistAC>
 export const deleteTasksFromTodolistAC = (id: string) => {
     return {
@@ -102,4 +106,4 @@ export const deleteTasksFromTodolistAC = (id: string) => {
             id
         }
     } as const
-}
+}*/
